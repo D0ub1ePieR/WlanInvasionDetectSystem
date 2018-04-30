@@ -98,6 +98,7 @@ public class KismetConnection {
             parse(in.readLine());
         }
 
+
         new Thread() {
 
             @Override
@@ -128,8 +129,6 @@ public class KismetConnection {
         }.start();
     }
 
-
-    /*一些接受返回值的函数*/
     public String getBuild() {
         return build;
     }
