@@ -91,6 +91,13 @@ public class Server
         });
     }
 
+    //运行服务器主函数
+    public void run() {
+        this.server.requestHandler(this.router::accept).listen(this.port);
+        logger.info((Object)String.format("server:%s is now listening at port:%d", this.host, this.port));
+        logger.info((Object)String.format("please visit url: http://%s:%d%s", this.host, this.port, "/"));
+    }
+
     public MongoClient getMongoClient() { return this.getDatabase().getMongoClient(); }
     public Database getDatabase() { return this.database; }
 }

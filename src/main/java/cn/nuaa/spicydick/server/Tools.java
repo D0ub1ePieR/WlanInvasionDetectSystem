@@ -169,4 +169,54 @@ public class Tools
          { err.printStackTrace(); }
          return encodeStr;
     }
+
+    //Date -> String
+    public static String dateToStr(final Date date) {
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final String str = format.format(date);
+        return str;
+    }
+    //Date -> Year-Month-Day
+    public static String dateToStrYMD(final Date date) {
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        final String str = format.format(date);
+        return str;
+    }
+    //Date -> Year.Month.Day
+    public static String dateToStrYMDDot(final Date date, final String prefix) {
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        final String str = format.format(date);
+        if (prefix == null) {
+            return str;
+        }
+        return prefix + str;
+    }
+    //Date -> Year-Month-Day_Hour-Min-Sec
+    public static String dateToStrForLog(final Date date) {
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        final String str = format.format(date);
+        return str;
+    }
+    //Date -> Year-Month-Day Hour:Min:Sec
+    public static String dateToMongoDBStr(final Date date) {
+        final StringBuffer sb = new StringBuffer();
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final String str = format.format(date);
+        sb.append("new Date(\"");
+        sb.append(str);
+        sb.append("\")");
+        return sb.toString();
+    }
+
+    //初始化系统
+    public static void initSystemProperties()
+    {
+        if (System.getenv("PROJECT_HOME")!=null)
+            System.setProperty("PROJECT_HOME", System.getenv("PROJECT_HOME"));
+        else
+            System.setProperty("PROJECT_HOME", ".");
+    }
+
+    public static void main(final String[] args){
+    }
 }
