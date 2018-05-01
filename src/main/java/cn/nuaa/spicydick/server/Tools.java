@@ -121,6 +121,22 @@ public class Tools
         return buffer.toString();
     }
 
+    //SHA256 编码
+    public static String encodeSHA256(String str)
+    {
+        MessageDigest messageDigest;
+        String encodeStr = "";
+        try
+        {
+            messageDigest = MessageDigest.getInstance("SHA-256");
+            messageDigest.update(str.getBytes("UTF-8"));
+            encodeStr = byte2Hex(messageDigest.digest());
+        }
+        catch (NoSuchAlgorithmException err) { err.printStackTrace(); }
+        catch (UnsupportedEncodingException err) { err.printStackTrace(); }
+        return encodeStr;
+    }
+
     //byte转为16进制
     private static String byte2Hex(byte[] bytes)
     {
