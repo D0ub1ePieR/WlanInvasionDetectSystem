@@ -3,6 +3,16 @@ package cn.nuaa.spicydick.server.msg;
 import io.vertx.core.json.JsonObject;
 
 //构建错误返回报文
+/**
+ * {
+ * "version": 1,
+ *  "error": {
+ *     "code": "#",
+ *     "message": "#",
+ *     },
+ * "id": "#"
+ * }
+ * */
 public class Error extends Response
 {
     int code;       //错误代码

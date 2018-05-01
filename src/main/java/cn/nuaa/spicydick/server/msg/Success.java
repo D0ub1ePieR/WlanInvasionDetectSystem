@@ -3,6 +3,15 @@ package cn.nuaa.spicydick.server.msg;
 import io.vertx.core.json.JsonObject;
 
 //响应成功，返回报文
+/**
+ * {
+ * "version": 1,
+ *  "result": {
+ *     "#": "#",
+ *     ...
+ *     },
+ * "id": "#"
+ * }*/
 public class Success extends Response
 {
     JsonObject result;
