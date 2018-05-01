@@ -3,7 +3,7 @@ package cn.nuaa.spicydick.server.handler.wifiDetection.Info;
 public class OnlineWhiteListWifiInfo {
     public String wifiSignal;   //wifi信号
     public String wifiSsid;     //wifi名称
-    public String company;      //公司名
+    public String company;      //设备厂商
     public String securityStatus;//安全状态
     public String wifiBssid;    //wifimac地址
 

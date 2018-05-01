@@ -7,8 +7,8 @@ public class WifiEventInfo {
     public String eventContent;     //事件目录
     public String relatedNetworkName;//相关网络名称
     public String relatedNetworkAddress;//相关网络地址
-    public String sourceInfo;       //源地址信息?
-    public String targetInfo;       //目的地址信息?
+    public String sourceInfo;       //源信息
+    public String targetInfo;       //目标信息
 
 
     public String getEventType() { return eventType; }

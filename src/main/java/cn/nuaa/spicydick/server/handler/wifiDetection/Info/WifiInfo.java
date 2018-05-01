@@ -5,8 +5,8 @@ public class WifiInfo {
     public int signal;  //信号
     public String ssid; //名称
     public int securityStatus;  //安全状态
-    public int encryption;      //加密
-    public int intranet;        //内联网？
+    public int encryption;      //加密方式
+    public int intranet;        //是否接入内网
     public int isInWhiteList;   //是否在白名单
     public int timeout;         //超时
     public String lastSeen;     //最后出现

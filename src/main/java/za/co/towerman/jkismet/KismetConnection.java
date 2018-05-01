@@ -125,7 +125,6 @@ public class KismetConnection {
                 } catch (IOException ex) {
                 }
             }
-
         }.start();
     }
 
