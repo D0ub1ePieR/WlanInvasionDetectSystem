@@ -35,7 +35,7 @@ public class Server
     private Server() {}
 
     //创建实例
-    private static Server getInstance()
+    public static Server getInstance()
     {
         if (instance==null)
             instance = new Server();
@@ -78,6 +78,7 @@ public class Server
             final Buffer buffer = routingContext.getBody();
             try
             {
+                //服务器接收到request请求
                 final Request request = new Request(buffer.toString());
                 logger.info((Object)String.format("server received request:%s", request.toString()));
                 RequestProcessor.getInstance().processRequest(routingContext, request);

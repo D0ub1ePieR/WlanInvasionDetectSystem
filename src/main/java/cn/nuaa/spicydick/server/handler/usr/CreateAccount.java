@@ -13,12 +13,8 @@ import org.apache.log4j.Logger;
 
 import java.util.Date;
 
-/*
-	author 	double_pier
-	data	2018/4/29
-*/
-
-public abstract class CreateAccount extends RequestHandler
+//创建账户
+public class CreateAccount extends RequestHandler
 {
 	public static Logger log = Logger.getLogger((Class)CreateAccount.class);	//log4j 日志记录
 	//public static final int username_format_error = -100;		//用户名格式错误
@@ -34,11 +30,10 @@ public abstract class CreateAccount extends RequestHandler
 		String username = request.getParams().getString("username");
 		String password = request.getParams().getString("password");
 
-
 		//格式检验
 		if ( username.length()>16 || username.length()<3 )
 		{
-			routingcontext.response().end(ResponseFactory.error(request.getID(), ErrorCode.USERNAME_FORMET_ERROR, "用户名格式错误").toString());
+			routingcontext.response().end(ResponseFactory.error(request.getID(), ErrorCode.USERNAME_FORMAT_ERROR, "用户名格式错误").toString());
 			return;
 		}
 	}
