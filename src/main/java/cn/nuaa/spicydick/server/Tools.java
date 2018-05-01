@@ -120,4 +120,37 @@ public class Tools
         final StringBuffer buffer = stringWriter.getBuffer();
         return buffer.toString();
     }
+
+    //byte转为16进制
+    private static String byte2Hex(byte[] bytes)
+    {
+        StringBuffer stringBuffer = new StringBuffer();
+        String tmp = null;
+        for (int i=0;i<bytes.length;i++)
+        {
+            tmp = Integer.toHexString(bytes[i] & 0xff);
+            //结果为1位，补位0
+            if (tmp.length()==1)
+                stringBuffer.append("0");
+            stringBuffer.append(tmp);
+        }
+        return stringBuffer.toString();
+    }
+    //MD5加密
+    public static String myMD5(String str)
+    {
+        MessageDigest messageDigest;
+         String encodeStr = "";
+         try
+         {
+             //字符串转为32位16进制位
+             messageDigest = MessageDigest.getInstance("MD5");
+             messageDigest.update(str.getBytes("UTF-8"));
+             encodeStr = byte2Hex(messageDigest.digest());
+         } catch (NoSuchAlgorithmException err)
+         { err.printStackTrace(); }
+         catch (UnsupportedEncodingException err)
+         { err.printStackTrace(); }
+         return encodeStr;
+    }
 }
