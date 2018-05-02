@@ -14,7 +14,7 @@ import java.util.Set;
 public class IniUtil {
     private static Logger logger = Logger.getLogger(IniUtil.class);     //记录日志
     private static IniUtil instance;        //用于构建、转化类实例
-    private static String initFilePath; //?????
+    private static String initFilePath = System.getenv("PROJECT_HOME")==null ? "./conf/config.ini" : System.getenv("PROJECT_HOME")+"/conf/config.ini"; //?????
 
     //配置文件子类
     private static String Server = "server";        //服务器信息

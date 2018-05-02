@@ -36,7 +36,7 @@ public class RequestProcessor
     //初始化url--method表
     private void initRequstHandlers()
     {
-        //this.requestHandlerMap.put("user.login", new Login());
+        this.requestHandlerMap.put("user.login", new Login());
         this.requestHandlerMap.put("user.createAccount", new CreateAccount());      //创建账户
         /*this.requestHandlerMap.put("user.updatePasswd", new UpdatePasswd());
 

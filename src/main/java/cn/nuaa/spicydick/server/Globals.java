@@ -4,9 +4,9 @@ public class Globals
 {
     private static boolean DEBUG = false;
     //数据库配置文件路径
-    private static String databaseConfFile = "cloud/conf/database.conf";
-    private static String localDatabaseConfFile = "cloud/conf/databaseLocalDebug.conf";
-    private static String remoteDatabaseConfFile = "cloud/conf/databaseRemoteDebug.conf";
+    private static String databaseConfFile = "./conf/database.conf";
+    private static String localDatabaseConfFile = "./conf/databaseLocalDebug.conf";
+    private static String remoteDatabaseConfFile = "./conf/databaseRemoteDebug.conf";
 
     //设置不同模式数据库配置文件路径
     public static void setDatabaseConfFile(final String databaseConfFile) { Globals.databaseConfFile = databaseConfFile; }      //设置为输入路径
