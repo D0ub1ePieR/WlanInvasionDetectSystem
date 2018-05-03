@@ -11,6 +11,7 @@ import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.RoutingContext;
 import org.apache.log4j.Logger;
 
+//用于返回网络安全信息统计数据
 public class GetStatisticsInfo extends RequestHandler {
     public static Logger logger = Logger.getLogger((Class) cn.nuaa.spicydick.server.handler.wifiDetection.GetStatisticsInfo.class);
 
@@ -25,32 +26,33 @@ public class GetStatisticsInfo extends RequestHandler {
 
         //设置假数据
         JsonObject result = new JsonObject();
-        JsonObject statisticsInfo = new JsonObject();
+        JsonObject statisticsInfo = new JsonObject();   //网络安全信息统计数据集合对象
 
-        statisticsInfo.put("totalEventNum",1);
-        statisticsInfo.put("unauthorizedWifiNum",1);
-        statisticsInfo.put("unauthorizedClientNum",1);
-        statisticsInfo.put("totalWifiNum",1);
-        statisticsInfo.put("intranetWifiNum",1);
-        statisticsInfo.put("nonIntranetWifiNum",1);
-        statisticsInfo.put("authorizedWifiNum",1);
-        statisticsInfo.put("onlineWhiteListWifiNum",1);
-        statisticsInfo.put("totalClientNum",1);
-        statisticsInfo.put("intranetClientNum",1);
-        statisticsInfo.put("nonIntranetClientNum",1);
-        statisticsInfo.put("authorizedClientNum",1);
-        statisticsInfo.put("onlineWhiteListClientNum",1);
-        statisticsInfo.put("alertNum",1);
-        statisticsInfo.put("warningNum",1);
-        statisticsInfo.put("dosAttackAlertNum",1);
-        statisticsInfo.put("forgedWifiAlertNum",1);
-        statisticsInfo.put("unauthorizedWifiAlertNum",1);
-        statisticsInfo.put("unauthorizedClientAlertNum",1);
-        statisticsInfo.put("authorizedClientUnauthorizedWifiAlertNum",1);
-        statisticsInfo.put("longAbsenceWarningNum",1);
-        statisticsInfo.put("weakEncryptionWifiWarningNum",1);
-        statisticsInfo.put("authorizedWifiIntranetWarningNum",1);
-        statisticsInfo.put("statusGrade",1);
+        statisticsInfo.put("totalEventNum",1);          //警报事件/网络事件总数
+        statisticsInfo.put("unauthorizedWifiNum",1);    //当前未授权wifi热点数
+        statisticsInfo.put("unauthorizedClientNum",1);  //当前未授权网络终端数
+        statisticsInfo.put("totalWifiNum",1);           //当前WiFi热点总数
+        statisticsInfo.put("intranetWifiNum",1);        //当前接入内网WiFi热点数
+        statisticsInfo.put("nonIntranetWifiNum",1);     //当前未接入内网WiFi热点数
+        statisticsInfo.put("authorizedWifiNum",1);      //当前授权WiFi热点数
+        statisticsInfo.put("onlineWhiteListWifiNum",1); //当前在线白名单WiFi数
+        statisticsInfo.put("totalClientNum",1);         //当前无线终端总数
+        statisticsInfo.put("intranetClientNum",1);      //当前接入内网无线终端数
+        statisticsInfo.put("nonIntranetClientNum",1);   //当前未接入内网无线终端数
+        statisticsInfo.put("authorizedClientNum",1);    //当前授权无线终端数
+        statisticsInfo.put("onlineWhiteListClientNum",1);//当前在线白名单无线终端数
+        statisticsInfo.put("alertNum",1);               //警报事件数
+        statisticsInfo.put("warningNum",1);             //提醒事件数
+        statisticsInfo.put("dosAttackAlertNum",1);      //Dos攻击警报事件数
+        statisticsInfo.put("forgedWifiAlertNum",1);     //伪造WiFi热点警报事件数
+        statisticsInfo.put("unauthorizedWifiAlertNum",1);//未授权WiFi热点警报事件数
+        statisticsInfo.put("unauthorizedClientAlertNum",1);//未授权无线终端警报事件数
+        statisticsInfo.put("authorizedClientUnauthorizedWifiAlertNum",1);//授权无线终端连接未授权WiFi热点警报事件数
+        statisticsInfo.put("longAbsenceWarningNum",1);  //检测长期未出现设备提醒事件数
+        statisticsInfo.put("weakEncryptionWifiWarningNum",1);//弱加密WiFi热点提醒事件数
+        statisticsInfo.put("authorizedWifiIntranetWarningNum",1);//授权WiFi热点接入内网提醒事件数
+        //少一个authorizedClientIntranetWarningNum	Int	授权无线终端接入内网提醒事件数？
+        statisticsInfo.put("statusGrade",1);            //当前状态评分
         result.put("statisticsInfo",statisticsInfo);
 
 

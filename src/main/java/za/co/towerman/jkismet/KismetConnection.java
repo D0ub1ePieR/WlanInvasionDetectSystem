@@ -85,7 +85,7 @@ public class KismetConnection {
     private String serverName = null;
 
 
-    /*建立连接，主机名和端口号为参数*/
+    //建立连接，主机名和端口号为参数
     public KismetConnection(String host, int port) throws IOException {
         socket = new Socket(host, port);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -153,7 +153,7 @@ public class KismetConnection {
     }
 
 
-    /*regieter 同步建立连接的信息*/
+    //regieter 同步建立连接的信息
     public void register(KismetListener listener) throws IOException {
         if (listener.connection != null) {
             throw new IllegalArgumentException("listener already bound to connection: " + listener.connection.socket);
@@ -170,7 +170,7 @@ public class KismetConnection {
         this.updateServerSubscriptions();
     }
 
-    /*deregister 取消已建立的连接*/
+    //deregister 取消已建立的连接
     public void deregister(KismetListener listener) throws IOException {
         if (listener.connection != this) {
             throw new IllegalArgumentException("listener is not bound to connection: " + this.socket);
@@ -186,7 +186,7 @@ public class KismetConnection {
     }
 
 
-    /*???*/
+    //???
     void updateServerSubscriptions() throws IOException {
         synchronized (listeners) {
             Map<String, Set<String>> needed = new HashMap<String, Set<String>>();
@@ -234,7 +234,7 @@ public class KismetConnection {
     }
 
 
-    /*分析帧类型*/
+    //分析帧类型
     private void parse(String line) throws IOException {
         if (line.startsWith("*KISMET: ") && line.length() > 9) {
             parseKismet(line.substring(9));
@@ -253,12 +253,12 @@ public class KismetConnection {
         }
     }
 
-    private void parseKismet(String kismet) {        //kismet格式
+    private void parseKismet(String kismet) {                            //kismet格式
         List<String> values = this.split(kismet);
-        version = values.get(0);                                    //第1位为版本号
-        startTime = new Date(Long.parseLong(values.get(1)) * 1000);    //第2位表示开始时间，将字符转为long型，毫秒数转为秒乘1000
-        serverName = values.get(2);                                    //第3位表示服务名
-        build = values.get(3);                                        //第4位表示build？？？
+        version = values.get(0);                                         //第1位为版本号
+        startTime = new Date(Long.parseLong(values.get(1)) * 1000);      //第2位表示开始时间，将字符转为long型，毫秒数转为秒乘1000
+        serverName = values.get(2);                                      //第3位表示服务名
+        build = values.get(3);                                           //第4位表示build？？？
     }
 
     private void parseAck(String ack) {
@@ -270,15 +270,15 @@ public class KismetConnection {
     }
 
     private void parseProtocols(String protocols) throws IOException {  //解析协议
-        for (String protocol : protocols.split(",")) {                    //以，作为分割
-            supported.put(protocol, null);                                //将每一段字符串写入到map类型数据supported中，表示支持的协议
+        for (String protocol : protocols.split(",")) {           //以，作为分割
+            supported.put(protocol, null);                             //将每一段字符串写入到map类型数据supported中，表示支持的协议
             out.write("!0 CAPABILITY " + protocol + "\r\n");
         }
         out.flush();
     }
 
 
-    private void parseCapabilities(String capabilities) {    //解析性能
+    private void parseCapabilities(String capabilities) {               //解析性能(服务)
         String protocol = capabilities.substring(0, capabilities.indexOf(' '));
         Set<String> set = new HashSet<String>();
         for (String capability : capabilities.substring(capabilities.indexOf(' ') + 1).split(",")) {
@@ -338,7 +338,7 @@ public class KismetConnection {
     }
 
 
-    /*控制???*/
+    //控制???
     private Object coerce(Class target, String value) {
         if (value == null || value.isEmpty()) {
             return value;
@@ -353,7 +353,7 @@ public class KismetConnection {
             }
         }
 
-        /*后面参数的类型*/
+        //分析target后参数的类型
         if (target.isAssignableFrom(double.class) || target.isAssignableFrom(Double.class)) {
             return Double.parseDouble(value);
         }
@@ -442,26 +442,25 @@ public class KismetConnection {
 	但是这种方式达到目的的效率比较低，且每执行一次都会创建一个String对象，即耗时，又浪费空间
 	*/
 
-    /*根据SOH切分一个大字符串，
-     * 返回值为一个string类型list
-     */
+
+    //根据SOH切分一个大字符串，返回值为一个string类型list
     private List<String> split(String str) {
-        List<String> result = new ArrayList<String>();//result用于存储最后的结果，全是字符
+        List<String> result = new ArrayList<String>();      //result用于存储最后的结果，全是字符
         boolean delim = false;
         StringBuilder current = new StringBuilder();
 
-        for (int i = 0; i < str.length(); ++i) {//先用current接受有效的字符最后将current中的字符逐个赋值给result
-            if (str.charAt(i) == 0x01) {    //0000 0001 SOH(start of headline) 协议中的头部开始标志
+        for (int i = 0; i < str.length(); ++i) {        //先用current接受有效的字符最后将current中的字符逐个赋值给result
+            if (str.charAt(i) == 0x01) {                //0000 0001 SOH(start of headline) 协议中的头部开始标志
                 delim = !delim;
             } else if (str.charAt(i) == ' ' && !delim) {    //遇到空格 且遇到另一次SOH，说明进入另一个协议
                 result.add(current.toString());            //此时current存储的为上一个协议中全部内容，加入到result中同时清空当前current存下的内容
                 current.setLength(0);
             } else {
-                current.append(str.charAt(i));        //正常字符，追加到current中
+                current.append(str.charAt(i));              //正常字符，追加到current中
             }
         }
 
-        if (current.length() > 0) {                    //之前的循环根据遇到下一个协议的SOH判断当前协议结束，对于最后一个协议没有判断依据，current最后的值即为最后一个协议内容
+        if (current.length() > 0) {                         //之前的循环根据遇到下一个协议的SOH判断当前协议结束，对于最后一个协议没有判断依据，current最后的值即为最后一个协议内容
             result.add(current.toString());
         }
         return result;

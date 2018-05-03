@@ -10,6 +10,8 @@ import io.vertx.ext.web.RoutingContext;
 import org.apache.log4j.Logger;
 
 
+
+//返回当前在线且在白名单的热点列表
 public class GetOnlineWhiteListWifiList extends RequestHandler {
     public static Logger logger = Logger.getLogger((Class) cn.nuaa.spicydick.server.handler.wifiDetection.GetStatisticsInfo.class);
 
@@ -17,7 +19,7 @@ public class GetOnlineWhiteListWifiList extends RequestHandler {
     public void handle(RoutingContext routingContext, final Request request) {
         routingContext.response().putHeader("content-type", "application/json");
 
-        //int page = request.getParams().getValue("page") != null ?
+        //int page = request.getParams().getValue("page") != null ?         //是否分页
                 //StringToInt(request.getParams().getValue("page").toString()) : 1;
 
     }

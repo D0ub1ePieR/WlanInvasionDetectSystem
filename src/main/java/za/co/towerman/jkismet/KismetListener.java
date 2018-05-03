@@ -38,24 +38,24 @@ public abstract class KismetListener {
 
     public void subscribe(Class messageType, String fields) throws IOException {
 
-        /*判断接口是否合法*/
+        //判断接口是否合法
         if (!KismetMessage.class.isAssignableFrom(messageType)) {
             throw new IllegalArgumentException("invalid message type: must implement KismetMessage interface");
         }
 
         Protocol protocol = (Protocol) messageType.getAnnotation(Protocol.class);
-        /*判断协议是否合法*/
+        //判断协议是否合法
         if (protocol == null) {
             throw new IllegalArgumentException("invalid message type: must declare protocol via annotation");
         }
 
-        /*检测支持的协议和服务*/
+        //检测支持的协议和服务
         if (connection != null) {
             this.checkServerSupport(connection);
         }
 
 
-        /*设置信息内容*/
+        //设置信息内容
         Set<Class> messageSet = subscriptions.get(protocol.value());
 
         if (messageSet == null) {
@@ -67,7 +67,7 @@ public abstract class KismetListener {
 
 
 
-        /*设置作用域内容 */
+        //设置作用域内容
         Set<String> fieldSet = capabilities.get(messageType);
 
         if (fieldSet == null) {
@@ -93,7 +93,7 @@ public abstract class KismetListener {
     }
 
 
-    /*获取所有性能*/
+    //获取所有性能(服务)
     private Capability findCapability(Class target, String field) {
         for (Method method : target.getMethods()) {
             Capability capability = method.getAnnotation(Capability.class);
@@ -105,7 +105,7 @@ public abstract class KismetListener {
         return null;
     }
 
-    /*检验是否支持相关协议和性能*/
+    //检验是否支持相关协议和性能（服务）
     void checkServerSupport(KismetConnection c) {
         for (Entry<String, Set<Class>> entry : subscriptions.entrySet()) {
             if (!c.getSupportedProtocols().contains(entry.getKey())) {
