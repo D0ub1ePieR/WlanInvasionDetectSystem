@@ -39,24 +39,24 @@ public class GetOnlineWhiteListWifiList extends RequestHandler {
         List<OnlineWhiteListWifiInfo> onlineWhiteListWifiInfoList = new ArrayList<OnlineWhiteListWifiInfo>();
 
         OnlineWhiteListWifiInfo Info1 = new OnlineWhiteListWifiInfo();
-        Info1.setWifiSignal("66");
-        Info1.setWifiSsid("TPLINK1");
-        Info1.setCompany("huawei");
-        Info1.setSecurityStatus("0");//0表示在内网不在白名单中，不安全
-        Info1.setWifiBssid("FF-FF-FF-FF-FF-FF");
+        Info1.setWifiSignal(66);                //wifi信号
+        Info1.setWifiSsid("TPLINK1");           //wifi名称
+        Info1.setCompany("huawei");             //设备厂商
+        Info1.setSecurityStatus(0);             //安全状态，0表示在内网不在白名单中，不安全
+        Info1.setWifiBssid("FF-FF-FF-FF-FF-FF");//wifi mac地址
 
         OnlineWhiteListWifiInfo Info2 = new OnlineWhiteListWifiInfo();
-        Info2.setWifiSignal("66");
+        Info2.setWifiSignal(66);
         Info2.setWifiSsid("TPLINK2");
         Info2.setCompany("huawei");
-        Info2.setSecurityStatus("1");//1表示在内网且在白名单中，安全
+        Info2.setSecurityStatus(1);             //1表示在内网且在白名单中，安全
         Info2.setWifiBssid("FF-FF-FF-FF-FF-FF");
 
         OnlineWhiteListWifiInfo Info3 = new OnlineWhiteListWifiInfo();
-        Info3.setWifiSignal("66");
+        Info3.setWifiSignal(66);
         Info3.setWifiSsid("TPLINK#");
         Info3.setCompany("huawei");
-        Info3.setSecurityStatus("2");//2表示不在内网也不在白名单，外部wifi可忽略
+        Info3.setSecurityStatus(2);             //2表示不在内网也不在白名单，外部wifi可忽略
         Info3.setWifiBssid("FF-FF-FF-FF-FF-FF");
 
         onlineWhiteListWifiInfoList.add(Info1);
