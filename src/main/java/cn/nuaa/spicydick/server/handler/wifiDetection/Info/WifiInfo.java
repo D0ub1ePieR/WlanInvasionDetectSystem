@@ -2,14 +2,15 @@ package cn.nuaa.spicydick.server.handler.wifiDetection.Info;
 
 public class WifiInfo {
 
-    public int signal;  //信号
-    public String ssid; //名称
-    public int securityStatus;  //安全状态
+
+    public int signal;          //信号强度
+    public String ssid;         //网络名称
+    public int securityStatus;  //安全状态，0在内网不在白名单，不安全；1在内网在白名单，安全；2不在内网不在白名单，外部可忽略
     public int encryption;      //加密方式
-    public int intranet;        //是否接入内网
-    public int isInWhiteList;   //是否在白名单
-    public int timeout;         //超时
-    public String lastSeen;     //最后出现
+    public int intranet;        //是否接入内网，0未接入，1接入
+    public int isInWhiteList;   //是否在白名单，0不在，1在
+    public int timeout;         //超时，0未超时，1超时
+    public String lastSeen;     //最后出现时间，时间格式YYYY-MM-DD
     public int connectionsNum;  //连接设备数
     public String bssid;        //mac地址
     public String flow;         //流量
