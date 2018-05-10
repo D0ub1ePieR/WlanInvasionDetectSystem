@@ -2,7 +2,7 @@ package cn.nuaa.spicydick.server.handler.wifiDetection.Info;
 
 public class WifiSignalsInfo {
     public  int wifiSignal; //信号
-    public String time;     //时间
+    public String time;     //信号强度时间点
 
     public int getWifiSignal() { return wifiSignal; }
     public String getTime() { return time; }
