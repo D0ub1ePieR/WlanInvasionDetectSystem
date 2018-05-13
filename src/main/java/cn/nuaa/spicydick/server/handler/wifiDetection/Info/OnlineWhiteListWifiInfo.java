@@ -4,7 +4,7 @@ public class OnlineWhiteListWifiInfo {
     public int wifiSignal;      //wifi信号
     public String wifiSsid;     //wifi名称
     public String company;      //设备厂商
-    public int securityStatus;  //安全状态
+    public int securityStatus;  //安全状态,0不安全，1安全
     public String wifiBssid;    //wifimac地址
 
     public int getWifiSignal() { return wifiSignal; }
