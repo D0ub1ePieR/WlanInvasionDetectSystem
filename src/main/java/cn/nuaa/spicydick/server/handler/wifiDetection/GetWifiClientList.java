@@ -38,8 +38,6 @@ public class GetWifiClientList extends RequestHandler {
         }
 
 
-        //errorcode和文档中一致？
-
         //使用假数据
 
         JsonArray wifiClientList = new JsonArray();
@@ -47,7 +45,7 @@ public class GetWifiClientList extends RequestHandler {
 
         JsonObject wifiClientInfo1 = new JsonObject();
         wifiClientInfo1.put("clientSignal", 12);                //信号强度
-        wifiClientInfo1.put("clientRemark", "test1");             //备注名称
+        wifiClientInfo1.put("clientRemark", "test1");           //备注名称
         wifiClientInfo1.put("isInWhiteList", 1);
         wifiClientInfo1.put("securityStatus", 1);
         wifiClientInfo1.put("lastSeen", "2017-11-11 11:11:11");

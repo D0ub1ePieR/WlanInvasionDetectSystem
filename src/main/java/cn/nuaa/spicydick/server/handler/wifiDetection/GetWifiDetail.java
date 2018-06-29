@@ -42,7 +42,7 @@ public class GetWifiDetail extends RequestHandler {
         wifiDetail.put("intranet",1);
         wifiDetail.put("whiteList",1);
         wifiDetail.put("timeout",1);
-        wifiDetail.put("timeoutTime",1);                    //超时时间，String，单位秒
+        wifiDetail.put("timeoutTime",1);                     //超时时间，String，单位秒
         wifiDetail.put("connectionNum",1);
         wifiDetail.put("appearTime",1);
         wifiDetail.put("firstSeen","2017-12-12 11:11:11");
