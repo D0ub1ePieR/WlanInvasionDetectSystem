@@ -57,19 +57,16 @@ public class AddWifiToWhiteList extends RequestHandler {
 
             if (!formDetect(clientBssid, "MAC_RegEx") || !formDetect(remark, 1, 20) ||
                     !formDetect(manager, 1, 20) || !formDetect(contact, 6, 12)) {
-                routingContext.response()
-                        .end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());
-                cn.nuaa.spicydick.server.handler.usr.Login.logger
-                        .error((Object) String.format("user:%s exception:%s", "非法参数"));
+                routingContext.response().end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());
+                cn.nuaa.spicydick.server.handler.usr.Login.logger.error((Object) String.format("user:%s exception:%s", "非法参数"));
                 return;
             }
 
-            // 设置单条记录信息
+            // 返回成功结果，输出单条记录信息
             singleResult Info = new singleResult();
             Info.setSingCode(0);
             Info.setSingleMessage("aa");
             addWifiToWhiteListResultList.add(Info);
-
         }
         result.put("resultList", addWifiToWhiteListResultList);
         routingContext.response().end(ResponseFactory.success(request, result).toString());
