@@ -19,6 +19,7 @@ import java.util.List;
 
 import static cn.nuaa.spicydick.server.RegExprFix.formDetect;
 
+// 将终端加入到白名单中
 public class AddClientToWhiteList extends RequestHandler {
 
     public static Logger logger = Logger.getLogger((Class) cn.nuaa.spicydick.server.handler.wifiDetection.GetStatisticsInfo.class);
@@ -70,8 +71,5 @@ public class AddClientToWhiteList extends RequestHandler {
         }
         result.put("resultList", addWifiToWhiteListResultList);
         routingContext.response().end(ResponseFactory.success(request, result).toString());
-
     }
-
-
 }
