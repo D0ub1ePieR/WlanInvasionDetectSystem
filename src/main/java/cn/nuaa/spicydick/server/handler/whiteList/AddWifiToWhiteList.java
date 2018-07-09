@@ -1,7 +1,7 @@
 package cn.nuaa.spicydick.server.handler.whiteList;
 
 import cn.nuaa.spicydick.server.RequestHandler;
-import cn.nuaa.spicydick.server.handler.whiteList.Info.ClientInfo;
+import cn.nuaa.spicydick.server.handler.whiteList.Info.WifiInfo;
 import cn.nuaa.spicydick.server.handler.whiteList.Info.singleResult;
 import cn.nuaa.spicydick.server.msg.Request;
 import cn.nuaa.spicydick.server.msg.ErrorCode;
@@ -25,13 +25,13 @@ public class AddWifiToWhiteList extends RequestHandler {
     public void handle(final RoutingContext routingContext, final Request request) {
         routingContext.response().putHeader("content-type", "application/json");
 
-        List<ClientInfo> clientInfoList = new ArrayList<ClientInfo>();
+        List<WifiInfo> wifiInfoList = new ArrayList<WifiInfo>();
         try {
             Gson gson = new Gson();
             // json接受request返回值
-            String json = request.getParams().getValue("clientInfoList").toString();
+            String json = request.getParams().getValue("wifiInfoList").toString();
             // fromJson实现从json相关对象到JAVA实体的转换，TypeToken是gson提供的数据类型转换器
-            clientInfoList = gson.fromJson(json, new TypeToken<List<ClientInfo>>() {
+            wifiInfoList = gson.fromJson(json, new TypeToken<List<WifiInfo>>() {
             }.getType());
         } catch (Exception e) {
             routingContext.response()
@@ -45,17 +45,17 @@ public class AddWifiToWhiteList extends RequestHandler {
         List<singleResult> addWifiToWhiteListResultList = new ArrayList<singleResult>();
 
         // 将客户端信息使用迭代器输出
-        for (Iterator it = clientInfoList.iterator(); it.hasNext(); ) {
-            ClientInfo clientInfo = (ClientInfo) it.next();
+        for (Iterator it = wifiInfoList.iterator(); it.hasNext(); ) {
+            WifiInfo wifiInfo = (WifiInfo) it.next();
 
-            String clientBssid = clientInfo.getClientBssid();
-            String remark = clientInfo.getRemark() != null ? clientInfo.getRemark() : "#NULL#";
-            String manager = clientInfo.getManager() != null ? clientInfo.getManager() : "#NULL#";
-            String contact = clientInfo.getContact() != null ? clientInfo.getContact() : "#NULL#";
+            String wifiBssid = wifiInfo.getWifiBssid();
+            String remark = wifiInfo.getRemark() != null ? wifiInfo.getRemark() : "#NULL#";
+            String manager = wifiInfo.getManager() != null ? wifiInfo.getManager() : "#NULL#";
+            String contact = wifiInfo.getContact() != null ? wifiInfo.getContact() : "#NULL#";
 
             // System.out.println("wifiSsid="+wifiSsid+ " wifiBssid="+wifiBssid+ " remark="+remark+ " " + " location="+ location+ " manager="+manager+ " contact="+contact);
 
-            if (!formDetect(clientBssid, "MAC_RegEx") || !formDetect(remark, 1, 20) ||
+            if (!formDetect(wifiBssid, "MAC_RegEx") || !formDetect(remark, 1, 20) ||
                     !formDetect(manager, 1, 20) || !formDetect(contact, 6, 12)) {
                 routingContext.response().end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());
                 cn.nuaa.spicydick.server.handler.usr.Login.logger.error((Object) String.format("user:%s exception:%s", "非法参数"));
