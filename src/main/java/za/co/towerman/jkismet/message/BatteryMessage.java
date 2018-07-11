@@ -25,17 +25,17 @@ import za.co.towerman.jkismet.Protocol;
  * @author espeer
  */
 
-/*
+/**
  * 电源信息格式：
  * BatteryMessage{percentage,mainsPowered,charging,remainingSeconds};
- * {电池百分比，主供电，充电，剩余时间秒数}
+ * {电池百分比，主供电，是否充电，剩余时间秒数}
  * */
 @Protocol("BATTERY")
 public class BatteryMessage implements KismetMessage {
-    private int percentage;
-    private boolean mainsPowered;
-    private boolean charging;
-    private int remainingSeconds;
+    private int percentage;             // 电池百分比
+    private boolean mainsPowered;       // 主供电
+    private boolean charging;           // 是否充电
+    private int remainingSeconds;       // 剩余供电时间
 
     public boolean isCharging() {
         return charging;

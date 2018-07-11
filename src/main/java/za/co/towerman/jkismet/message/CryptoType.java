@@ -22,9 +22,9 @@ package za.co.towerman.jkismet.message;
  * @author espeer
  */
 
-/*
+/**
  * 加密类型
- */
+ **/
 
 public enum CryptoType {
     NONE,
