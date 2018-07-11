@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 //匹配正则表达式，检验各数据类型的正确性
 public class RegExprFix
 {
+    //TODO 添加正则匹配
     private static final HashMap <String, String> RegExprMap = new HashMap<String, String>()
     {{
         put("URL_RegExpr","");
