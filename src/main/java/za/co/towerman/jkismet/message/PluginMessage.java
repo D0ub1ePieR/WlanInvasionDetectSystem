@@ -24,22 +24,22 @@ import za.co.towerman.jkismet.Protocol;
  * @author espeer
  */
 
-/*
+/**
  * 插件信息格式：
  * PluginMessage{name, description,file + ", version,unloadable ,root };
  * {名称，描述，文件，版本，是否下载，是否具有root权限}
- */
+ **/
 @Protocol("PLUGIN")
 
 
 public class PluginMessage implements KismetMessage {
 
-    private String name;
-    private String description;
-    private String file;
-    private String version;
-    private boolean unloadable;
-    private boolean root;
+    private String name;            // 插件名
+    private String description;     // 插件描述
+    private String file;            // 文件
+    private String version;         // 版本
+    private boolean unloadable;     // 是否下载
+    private boolean root;           // 是否root
 
     public String getDescription() {
         return description;
