@@ -1,6 +1,7 @@
 package cn.nuaa.spicydick.server;
 
 import cn.nuaa.spicydick.server.handler.usr.*;
+import cn.nuaa.spicydick.server.handler.wifiDetection.GetStatisticsInfo;
 import cn.nuaa.spicydick.server.msg.ErrorCode;
 import cn.nuaa.spicydick.server.msg.Request;
 import cn.nuaa.spicydick.server.msg.ResponseFactory;
@@ -38,10 +39,10 @@ public class RequestProcessor
     {
         this.requestHandlerMap.put("user.login", new Login());
         this.requestHandlerMap.put("user.createAccount", new CreateAccount());      //创建账户
-        /*this.requestHandlerMap.put("user.updatePasswd", new UpdatePasswd());
+        //this.requestHandlerMap.put("user.updatePasswd", new UpdatePasswd());
 
         this.requestHandlerMap.put("wifiDetection.getStatisticsInfo", new GetStatisticsInfo());
-        this.requestHandlerMap.put("wifiDetection.getWifiList", new GetWifiList());
+        /*this.requestHandlerMap.put("wifiDetection.getWifiList", new GetWifiList());
         this.requestHandlerMap.put("wifiDetection.getWifiDetail", new GetWifiDetail());
         this.requestHandlerMap.put("wifiDetection.getWifiClientList", new GetWifiClientList());
         this.requestHandlerMap.put("wifiDetection.getWifiSignals", new GetWifiSignals());
