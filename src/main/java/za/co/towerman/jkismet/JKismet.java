@@ -41,6 +41,7 @@ import za.co.towerman.jkismet.message.TimeMessage;
  *
  * @author espeer
  */
+
 public class JKismet {
 
     public static void main(String[] args) throws IOException {
