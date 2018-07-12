@@ -42,6 +42,10 @@ import za.co.towerman.jkismet.message.TimeMessage;
  * @author espeer
  */
 
+// 该方法为开启功能的主要函数
+// 调用KismetConnection以及KismetListener中的方法
+// 首先建立连接，然后开启监听功能，实现对网络的监听
+
 public class JKismet {
 
     public static void main(String[] args) throws IOException {
@@ -78,6 +82,5 @@ public class JKismet {
         listener.subscribe(PacketMessage.class, "type, subType");
 
         conn.register(listener);    // 建立连接
-
     }
 }

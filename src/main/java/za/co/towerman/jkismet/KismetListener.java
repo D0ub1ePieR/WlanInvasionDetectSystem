@@ -32,6 +32,9 @@ import za.co.towerman.jkismet.message.KismetMessage;
  * @author espeer
  */
 
+// 该方法从Jkismet中接受参数，进行各参数的初始化配置后启动监听服务
+// 主要方法为public void subscribe(Class messageType, String fields)
+// messageType表示服务的信息类型，field表示包含的参数
 public abstract class KismetListener {
     KismetConnection connection = null;    // 连接
     Map<String, Set<Class>> subscriptions = new HashMap<String, Set<Class>>();   // 启动服务
