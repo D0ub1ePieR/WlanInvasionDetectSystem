@@ -28,6 +28,10 @@ import java.lang.annotation.Target;
  */
 
 
+/**
+ * Protocol注解，用于表示各类服务功能
+ */
+
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Protocol {

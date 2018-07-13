@@ -27,7 +27,10 @@ import za.co.towerman.jkismet.Protocol;
  * @author espeer
  */
 
-/*时间信息*/
+/**
+ * 时间信息{秒级时间}
+ * */
+
 @Protocol("TIME")
 public class TimeMessage implements KismetMessage {
 

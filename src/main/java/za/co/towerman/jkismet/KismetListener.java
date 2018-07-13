@@ -31,43 +31,47 @@ import za.co.towerman.jkismet.message.KismetMessage;
  *
  * @author espeer
  */
+
+// 该方法从Jkismet中接受参数，进行各参数的初始化配置后启动监听服务
+// 主要方法为public void subscribe(Class messageType, String fields)
+// messageType表示服务的信息类型，field表示包含的参数
 public abstract class KismetListener {
-    KismetConnection connection = null;    //连接
-    Map<String, Set<Class>> subscriptions = new HashMap<String, Set<Class>>();    //处于服务中
-    Map<Class, Set<String>> capabilities = new HashMap<Class, Set<String>>();    //性能
+    KismetConnection connection = null;    // 连接
+    Map<String, Set<Class>> subscriptions = new HashMap<String, Set<Class>>();   // 启动服务
+    Map<Class, Set<String>> capabilities = new HashMap<Class, Set<String>>();    // 参数
+
+    // 根据传入的参数启动服务，messageType表示服务的信息类型，field表示包含的参数
+    // 具体调用在文件JKismet中
+    // 如 listener.subscribe(BatteryMessage.class, "percentage, mainsPowered, charging, remainingSeconds");
 
     public void subscribe(Class messageType, String fields) throws IOException {
 
-        //判断接口是否合法
+        // 判断信息格式是否合法
         if (!KismetMessage.class.isAssignableFrom(messageType)) {
             throw new IllegalArgumentException("invalid message type: must implement KismetMessage interface");
         }
 
         Protocol protocol = (Protocol) messageType.getAnnotation(Protocol.class);
-        //判断协议是否合法
+        // 判断协议是否合法
         if (protocol == null) {
             throw new IllegalArgumentException("invalid message type: must declare protocol via annotation");
         }
 
-        //检测支持的协议和服务
+        // 检测支持的协议和服务
         if (connection != null) {
             this.checkServerSupport(connection);
         }
 
-
-        //设置信息内容
+        // 设置信息类型
         Set<Class> messageSet = subscriptions.get(protocol.value());
 
         if (messageSet == null) {
             messageSet = new HashSet<Class>();
             subscriptions.put(protocol.value(), messageSet);
         }
-
         messageSet.add(messageType);
 
-
-
-        //设置作用域内容
+        //设置参数类型
         Set<String> fieldSet = capabilities.get(messageType);
 
         if (fieldSet == null) {
@@ -75,9 +79,12 @@ public abstract class KismetListener {
             capabilities.put(messageType, fieldSet);
         }
 
+        // 以','为间隔分解传入的参数字符串，依次设置参数
+
         for (String field : fields.split(",")) {
             field = field.trim();
 
+            // 设置参数
             Capability capability = this.findCapability(messageType, field);
 
             if (capability == null) {
@@ -87,13 +94,14 @@ public abstract class KismetListener {
             fieldSet.add(capability.value());
         }
 
+        // 连接建立成功，服务启动
         if (connection != null) {
             connection.updateServerSubscriptions();
         }
     }
 
 
-    //获取所有性能(服务)
+    // 获取所有参数
     private Capability findCapability(Class target, String field) {
         for (Method method : target.getMethods()) {
             Capability capability = method.getAnnotation(Capability.class);
@@ -101,11 +109,10 @@ public abstract class KismetListener {
                 return capability;
             }
         }
-
         return null;
     }
 
-    //检验是否支持相关协议和性能（服务）
+    //检验是否支持相关协议和参数
     void checkServerSupport(KismetConnection c) {
         for (Entry<String, Set<Class>> entry : subscriptions.entrySet()) {
             if (!c.getSupportedProtocols().contains(entry.getKey())) {

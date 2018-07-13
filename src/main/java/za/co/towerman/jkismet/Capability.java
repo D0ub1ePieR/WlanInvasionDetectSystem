@@ -24,29 +24,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ *
  * @author espeer
- * <p>
- * (我们使用了@interface声明了Test注解，
- * 并使用@Target注解传入ElementType.METHOD参数来标明@Test只能用于方法上，
- * @Retention(RetentionPolicy.RUNTIME)则用来表示该注解生存期是运行时， 从代码上看注解的定义很像接口的定义，确实如此，毕竟在编译后也会生成Test.class文件。
- * 对于@Target和@Retention是由Java提供的元注解，所谓元注解就是标记其他注解的注解
  **/
 
-/**
- *(我们使用了@interface声明了Test注解，
- *并使用@Target注解传入ElementType.METHOD参数来标明@Test只能用于方法上，
- *@Retention(RetentionPolicy.RUNTIME)则用来表示该注解生存期是运行时，
- *从代码上看注解的定义很像接口的定义，确实如此，毕竟在编译后也会生成Test.class文件。
- *对于@Target和@Retention是由Java提供的元注解，所谓元注解就是标记其他注解的注解
- **/
 
 /**
- * Capability information位: 发送Beacon信号的时候，它被用来通知各方，该网络具备哪种性能
+ * Capability注解，用于表示各类参数
  */
 
 
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)             // 使用@Target注解传入ElementType.METHOD参数来标明该注解只能用于方法上
+@Retention(RetentionPolicy.RUNTIME)     // 使用@Retention(RetentionPolicy.RUNTIME)用来表示该注解生存期是运行时
 public @interface Capability {
     String value();
 }

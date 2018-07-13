@@ -27,24 +27,24 @@ import za.co.towerman.jkismet.Protocol;
  * @author espeer
  */
 
-/*
+/**
  * 警告信息格式：
  * AlertMessage{time,timeMicroseconds,header,bssid,source,destination,other,channel,text}
- * {时间，微秒时间，头部，mac地址，源地址，目的地址，其他信息，频道号，报文内容}
+ * {时间，微秒数时间，头部信息，MAC地址，源地址，目的地址，可选项，信道，报文内容}
  * */
 
 @Protocol("ALERT")
 public class AlertMessage implements KismetMessage {
 
-    private Date time;            //时间
-    private int timeMicroseconds;//微秒数时间
-    private String header;        //头部
-    private String bssid;        //路由器mac地址
-    private String source;        //源地址
-    private String destination;    //目的地址
-    private String other;        //可选项
-    private int channel;        //无线信道
-    private String text;        //报文
+    private Date time;              //时间
+    private int timeMicroseconds;   //微秒数时间
+    private String header;          //头部信息
+    private String bssid;           //MAC地址
+    private String source;          //源地址
+    private String destination;     //目的地址
+    private String other;           //可选项
+    private int channel;            //无线信道
+    private String text;            //报文
 
     public String getBssid() {
         return bssid;
@@ -131,6 +131,4 @@ public class AlertMessage implements KismetMessage {
     public String toString() {
         return "AlertMessage{" + "time=" + time + ", timeMicroseconds=" + timeMicroseconds + ", header=" + header + ", bssid=" + bssid + ", source=" + source + ", destination=" + destination + ", other=" + other + ", channel=" + channel + ", text=" + text + '}';
     }
-
-
 }

@@ -41,23 +41,29 @@ import za.co.towerman.jkismet.message.TimeMessage;
  *
  * @author espeer
  */
+
+// 该方法为开启功能的主要函数
+// 调用KismetConnection以及KismetListener中的方法
+// 首先建立连接，然后开启监听功能，实现对网络的监听
+
 public class JKismet {
 
     public static void main(String[] args) throws IOException {
-        //KismetConnection conn = new KismetConnection(args[0], Integer.parseInt(args[1]));
-        KismetConnection conn = new KismetConnection("10.211.55.15", 2501);    //建立端口连接
+        //KismetConnection conn = new KismetConnection(args[0], Integer.parseInt(args[1])); //建立端口连接
+        KismetConnection conn = new KismetConnection("10.211.55.15", 2501);    // 暂时使用假数据建立端口连接
 
-        System.out.println("Server: " + conn.getServerName() + " Started: " + conn.getStartTime());//输出服务名和时间
+        System.out.println("Server: " + conn.getServerName() + " Started: " + conn.getStartTime());// 输出服务名和时间
 
-        KismetListener listener = new KismetListener() {                    //开始监听网络
+        // 实现一个监听类的实例，同时实现方法onMessage(),onTerminated()
+        KismetListener listener = new KismetListener() {                      // 开始监听网络
 
             @Override
-            public void onMessage(KismetMessage message) {                    //信息
+            public void onMessage(KismetMessage message) {                    // 输出信息
                 System.out.println(message);
             }
 
             @Override
-            public void onTerminated(String reason) {                        //停止原因
+            public void onTerminated(String reason) {                        // 显示监听停止原因
                 System.out.println("Connection terminated by server: " + reason);
             }
         };
@@ -75,7 +81,6 @@ public class JKismet {
         listener.subscribe(BSSIDMessage.class, "mac, channel, frequencies, networkType, addressType, dataBytes, carriers, encodings, cryptographies");
         listener.subscribe(PacketMessage.class, "type, subType");
 
-        conn.register(listener);    //建立连接
-
+        conn.register(listener);    // 建立连接
     }
 }
