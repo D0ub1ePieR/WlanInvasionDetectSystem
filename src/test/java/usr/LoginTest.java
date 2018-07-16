@@ -1,4 +1,4 @@
-package java.usr;
+package usr;
 
 import cn.nuaa.spicydick.server.util.IniUtil;
 import io.vertx.core.Vertx;

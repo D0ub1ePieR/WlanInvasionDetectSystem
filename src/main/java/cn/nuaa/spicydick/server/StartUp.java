@@ -15,7 +15,9 @@ public class StartUp
 
     public static void main(final String[] args)
     {
+        //输出环境变量项目目录
         System.out.println(System.getenv("PROJECT_HOME"));
+        //设置项目运行时使用的目录地址
         Tools.initSystemProperties();
         System.setProperty("vertx.logger-delegate-factory-class-name", "io.vertx.core.logging.Log4jLogDelegateFactory");
         PropertyConfigurator.configure(LOG_FILE);
@@ -26,6 +28,7 @@ public class StartUp
             final Vertx vertx = Vertx.vertx();
             final Server server = Server.getInstance();
 
+            //初始化启动
             server.init(vertx);
             server.run();
         } catch (Throwable err)
