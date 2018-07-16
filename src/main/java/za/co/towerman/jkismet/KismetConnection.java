@@ -51,43 +51,28 @@ import za.co.towerman.jkismet.message.ValueEnum;
 
 public class KismetConnection {
 
-    private final Map<String, Set<String>> supported = new HashMap<String, Set<String>>();    //supported
-    private final List<KismetListener> listeners = new LinkedList<KismetListener>();        //listeners
-    private final Map<String, List<String>> subscribed = new HashMap<String, List<String>>();//subscribed
-
-
-	/*
-	BufferedReader，字符缓冲输入流，作用是为其他输入流提供缓冲功能。
-	BufferedReader从其他字符输入流中读取文本，缓冲各个字符，从而实现字符、数组和行的高效读取。
-	通常，Reader所作的每个读取请求都会导致对底层字符或字节流进行相应的读取请求。
-	因此，建议用BufferedReader包装所有其read()操作可能开销很高的Reader（如FileReader和InputStreamReader）。
-	例如， BufferedReader in = new BufferedReader(new FileReader("foo.in"));将缓冲指定文件的输入。
-	如果没有缓冲，则每次调用read()或readLine()都会导致从文件中读取字节，并将其转换为字符后返回，而这是极其低效的。
-
-	BufferedWriter，字符缓冲输出流，作用是为其他输出流提供缓冲功能。
-	BufferedWriter将文本写入其他字符输出流，缓冲各个字符，从而提供单个字符、数组和字符串的高效写入。
-	通常Writer将其输出立即发送到底层字符或字节流。除非要求提示输出，
-	否则建议用BufferedWriter包装所有其write()操作可能开销很高的 Writer（如FileWriters和OutputStreamWriters）。
-	例如，PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("foo.out")));
-	将缓冲PrintWriter对文件的输出。如果没有缓冲，则每次调用print()方法会导致将字符转换为字节，然后立即写入到文件，而这是极其低效的
-	*/
+    private final Map<String, Set<String>> supported = new HashMap<String, Set<String>>();      //supported
+    private final List<KismetListener> listeners = new LinkedList<KismetListener>();       //listeners
+    private final Map<String, List<String>> subscribed = new HashMap<String, List<String>>();    //subscribed
 
     private final Socket socket;
     private BufferedReader in;
     private BufferedWriter out;
 
-    private boolean running = true;    //是否运行
-    private boolean initialised = false;//是否初始化
+    private boolean running = true;         //是否运行
+    private boolean initialised = false;    //是否初始化
 
-    private String version = null;//版本号
-    private String build = null;//???
-    private Date startTime = null;
-    private String serverName = null;
+    private String version = null;          //版本号
+    private String build = null;
+    private Date startTime = null;          //开始时间
+    private String serverName = null;       //服务名称
 
 
-    //建立连接，主机名和端口号为参数
+    // 建立连接，主机名和端口号为参数
     public KismetConnection(String host, int port) throws IOException {
         socket = new Socket(host, port);
+
+        // 新建字节输入输出流用于传输数据
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
@@ -99,6 +84,7 @@ public class KismetConnection {
         }
 
 
+        // 多线程运行
         new Thread() {
 
             @Override
@@ -126,6 +112,7 @@ public class KismetConnection {
                 }
             }
         }.start();
+
     }
 
     public String getBuild() {
@@ -153,24 +140,24 @@ public class KismetConnection {
     }
 
 
-    //regieter 同步建立连接的信息
+    // 生效连接，在连接建立后检查各参数是否合法并使其生效
     public void register(KismetListener listener) throws IOException {
         if (listener.connection != null) {
             throw new IllegalArgumentException("listener already bound to connection: " + listener.connection.socket);
         }
 
-        listener.checkServerSupport(this);
+        listener.checkServerSupport(this);      // 检查支持的服务
 
-        synchronized (listeners) {
+        synchronized (listeners) {                 // 设置监听模块
             listeners.add(listener);
         }
 
         listener.connection = this;
 
-        this.updateServerSubscriptions();
+        this.updateServerSubscriptions();          // 生效连接
     }
 
-    //deregister 取消已建立的连接
+    // 失效连接，对已生效的连接进行失效处理
     public void deregister(KismetListener listener) throws IOException {
         if (listener.connection != this) {
             throw new IllegalArgumentException("listener is not bound to connection: " + this.socket);
@@ -185,12 +172,12 @@ public class KismetConnection {
         this.updateServerSubscriptions();
     }
 
-
-    //???
+    // 生效连接具体方法
     void updateServerSubscriptions() throws IOException {
         synchronized (listeners) {
             Map<String, Set<String>> needed = new HashMap<String, Set<String>>();
 
+            // 对于每一个监听模块，设置其中包含的参数以及信息类型
             for (KismetListener listener : listeners) {
                 for (Entry<String, Set<Class>> entry : listener.subscriptions.entrySet()) {
                     Set<String> capabilities = needed.get(entry.getKey());
@@ -207,6 +194,7 @@ public class KismetConnection {
                 }
             }
 
+            // 设置协议
             for (String protocol : subscribed.keySet()) {
                 if (!needed.containsKey(protocol)) {
                     out.write("!0 REMOVE " + protocol + "\r\n");
@@ -234,10 +222,11 @@ public class KismetConnection {
     }
 
 
-    //分析帧类型
+    // 根据输入字符串前若干位判断所属报文类型并进行相应的分析报文操作
     private void parse(String line) throws IOException {
-        if (line.startsWith("*KISMET: ") && line.length() > 9) {
-            parseKismet(line.substring(9));
+
+        if (line.startsWith("*KISMET: ") && line.length() > 9) {    // KISMET报文标志
+            parseKismet(line.substring(9));                         // 去除前9位标志，留下后面的报文内容，解析报文内容
         } else if (line.startsWith("*ACK: ") && line.length() > 6) {
             parseAck(line.substring(6));
         } else if (line.startsWith("*ERROR: ") && line.length() > 8) {
@@ -253,32 +242,39 @@ public class KismetConnection {
         }
     }
 
+    // 解析kismet报文内容
     private void parseKismet(String kismet) {                            //kismet格式
-        List<String> values = this.split(kismet);
-        version = values.get(0);                                         //第1位为版本号
-        startTime = new Date(Long.parseLong(values.get(1)) * 1000);      //第2位表示开始时间，将字符转为long型，毫秒数转为秒乘1000
-        serverName = values.get(2);                                      //第3位表示服务名
-        build = values.get(3);                                           //第4位表示build？？？
+        List<String> values = this.split(kismet);                        //拆分kismet内容字符串
+        version = values.get(0);                                         //第0位为版本号
+        startTime = new Date(Long.parseLong(values.get(1)) * 1000);      //第1位表示开始时间，将字符转为long型，毫秒数转为秒乘1000
+        serverName = values.get(2);                                      //第2位表示服务名
+        build = values.get(3);                                           //第3位表示？？？
     }
 
+    // 解析ACK报文内容，暂时忽略该功能
     private void parseAck(String ack) {
         // ignored for now (not very robust)
     }
 
+    // 解析错误信息报文内容，暂时忽略该功能
     private void parseError(String error) {
         // ignored for now (not very robust)
     }
 
-    private void parseProtocols(String protocols) throws IOException {  //解析协议
-        for (String protocol : protocols.split(",")) {           //以，作为分割
-            supported.put(protocol, null);                             //将每一段字符串写入到map类型数据supported中，表示支持的协议
+    // 解析协议组
+    private void parseProtocols(String protocols) throws IOException {
+
+        // 由split方法根据','切分字符串，得到传入的所有协议，全部加入到表示支持协议的supported中并将相关信息写入字符流，即输出
+        for (String protocol : protocols.split(",")) {
+            supported.put(protocol, null);
             out.write("!0 CAPABILITY " + protocol + "\r\n");
         }
         out.flush();
     }
 
+    // 解析相关参数报文内容
+    private void parseCapabilities(String capabilities) {
 
-    private void parseCapabilities(String capabilities) {               //解析性能(服务)
         String protocol = capabilities.substring(0, capabilities.indexOf(' '));
         Set<String> set = new HashSet<String>();
         for (String capability : capabilities.substring(capabilities.indexOf(' ') + 1).split(",")) {
@@ -294,19 +290,28 @@ public class KismetConnection {
         initialised = true;
     }
 
+    // 解析终止报文内容
     private void parseTerminate(String text) {
-        running = false;
+        running = false;    // 运行位置false
+        // 对所有监听模块进行终止并传入终止信息
         for (KismetListener listener : listeners) {
             listener.onTerminated(text);
         }
     }
 
+
+    // 解析单个协议及其具体内容
+    // 形如如下字符船内容
+    // BatteryMessage.class, "percentage, mainsPowered, charging, remainingSeconds"
+    // StatusMessage.class, "flags, text"
+    // BSSIDSourceMessage.class, "mac, packets, uuid, lastTime"
+    // 提取出出message类型数和参数capacity数并调用coerce解析
     private void parseProtocol(String protocol, String value) {
         List<String> capabilities = subscribed.get(protocol);
         List<String> values = this.split(value);
 
         if (capabilities == null) {
-            return; // not subscribed to protocol
+            return;                         // not subscribed to protocol
         }
 
         synchronized (listeners) {
@@ -319,6 +324,7 @@ public class KismetConnection {
                             for (String capability : listener.capabilities.get(messageType)) {
                                 for (Method method : messageType.getMethods()) {
                                     Capability annotation = (Capability) method.getAnnotation(Capability.class);
+                                    // 通过注解解析后服务和参数不为空，调用coerce方法解析
                                     if (annotation != null && capability.equals(annotation.value()) && method.getParameterTypes().length == 1) {
                                         method.invoke(message, this.coerce(method.getParameterTypes()[0], values.get(capabilities.indexOf(capability))));
                                         break;
@@ -338,13 +344,13 @@ public class KismetConnection {
     }
 
 
-    //控制???
+    // 在解析协议具体内容时调用，根据传入的参数target分析所属服务类型，根据参数value分析服务中包含的参数内容
     private Object coerce(Class target, String value) {
         if (value == null || value.isEmpty()) {
             return value;
         }
 
-        /*值的真假*/
+        // 分析target类型并做相应处理
         if (target.isAssignableFrom(boolean.class) || target.isAssignableFrom(Boolean.class)) {
             if ("1".equals(value) || "true".equalsIgnoreCase(value) || "t".equalsIgnoreCase(value)) {
                 return Boolean.TRUE;
@@ -353,7 +359,6 @@ public class KismetConnection {
             }
         }
 
-        //分析target后参数的类型
         if (target.isAssignableFrom(double.class) || target.isAssignableFrom(Double.class)) {
             return Double.parseDouble(value);
         }
@@ -382,7 +387,7 @@ public class KismetConnection {
             return Float.parseFloat(value);
         }
 
-
+        // 枚举类型
         if (target.isEnum()) {
             Object[] constants = target.getEnumConstants();
             for (int i = 0; i < constants.length; ++i) {
@@ -414,6 +419,7 @@ public class KismetConnection {
             }
         }
 
+        // IP地址类型
         if (target.isAssignableFrom(InetAddress.class)) {
             try {
                 return InetAddress.getByName(value);
@@ -421,6 +427,7 @@ public class KismetConnection {
             }
         }
 
+        // 唯一识别码类型
         if (target.isAssignableFrom(UUID.class)) {
             try {
                 return UUID.fromString(value);
@@ -432,28 +439,17 @@ public class KismetConnection {
     }
 
 
-
-	/*
-	StringBuilder是一个可变的字符序列。此类提供一个与 StringBuffer 兼容的 API，但不保证同步。
-	该类被设计用作 StringBuffer 的一个简易替换，用在字符串缓冲区被单个线程使用的时候（这种情况很普遍）。
-	如果可能，建议优先采用该类，因为在大多数实现中，它比 StringBuffer 要快。
-	在 StringBuilder 上的主要操作是 append 和 insert 方法。
-	在程序开发过程中，我们常常碰到字符串连接的情况，方便和直接的方式是通过"+"符号来实现，
-	但是这种方式达到目的的效率比较低，且每执行一次都会创建一个String对象，即耗时，又浪费空间
-	*/
-
-
     //根据SOH切分一个大字符串，返回值为一个string类型list
     private List<String> split(String str) {
         List<String> result = new ArrayList<String>();      //result用于存储最后的结果，全是字符
         boolean delim = false;
         StringBuilder current = new StringBuilder();
 
-        for (int i = 0; i < str.length(); ++i) {        //先用current接受有效的字符最后将current中的字符逐个赋值给result
-            if (str.charAt(i) == 0x01) {                //0000 0001 SOH(start of headline) 协议中的头部开始标志
+        for (int i = 0; i < str.length(); ++i) {            //先用current接受有效的字符最后将current中的字符逐个赋值给result
+            if (str.charAt(i) == 0x01) {                    //0000 0001 SOH(start of headline) 协议中的头部开始标志
                 delim = !delim;
             } else if (str.charAt(i) == ' ' && !delim) {    //遇到空格 且遇到另一次SOH，说明进入另一个协议
-                result.add(current.toString());            //此时current存储的为上一个协议中全部内容，加入到result中同时清空当前current存下的内容
+                result.add(current.toString());             //此时current存储的为上一个协议中全部内容，加入到result中同时清空当前current存下的内容
                 current.setLength(0);
             } else {
                 current.append(str.charAt(i));              //正常字符，追加到current中
