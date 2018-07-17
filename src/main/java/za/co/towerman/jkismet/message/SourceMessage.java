@@ -27,7 +27,7 @@ import za.co.towerman.jkismet.Protocol;
  */
 
 
-/*
+/**
  * 源地址信息格式：
  * SourceMessage{iface, type, user, channel, uuid, packets, hop, dwell,
  * velocity, hopTimeSeconds, hopTimeMicroseconds, channels, error, warning};
