@@ -29,9 +29,9 @@ import za.co.towerman.jkismet.Protocol;
  */
 
 /**
- * mac地址源信息格式：
- * "BSSIDSourceMessage{mac,uuid,lastTime,packets};、
- * {mac地址，唯一识别码，持续时间？，包}
+ * MAC地址源信息格式：
+ * "BSSIDSourceMessage{MAC,uuid,lastTime,packets};
+ * {MAC地址，唯一识别码，最近出现时间，包}
  * */
 @Protocol("BSSIDSRC")
 public class BSSIDSourceMessage implements KismetMessage {
