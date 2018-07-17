@@ -31,9 +31,8 @@ import za.co.towerman.jkismet.Protocol;
  * @author espeer
  */
 
-/*
+/**
  * BSSID MAC地址信息
- *
  *
  * */
 @Protocol("BSSID")
@@ -90,7 +89,7 @@ public class BSSIDMessage implements KismetMessage {
         GFSK
     }
 
-    public class SpectrumUtilization {//频道利用
+    public class SpectrumUtilization { //频道利用
         private int frequency;
         private int packets;
 
