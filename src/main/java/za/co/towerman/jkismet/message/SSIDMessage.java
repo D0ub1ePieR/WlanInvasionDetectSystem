@@ -35,11 +35,12 @@ import za.co.towerman.jkismet.Protocol;
 public class SSIDMessage implements KismetMessage {
 
 
-    /*
+    /**
      * 信道信息：
      * Channel{country, base, width, power};
      * {国家，基站，宽度，强度}
      * */
+
     public class Channel {
         private String country;
         private int base;
@@ -83,22 +84,23 @@ public class SSIDMessage implements KismetMessage {
     }
 
 
-    /*
+    /**
      * ssid信息
      * */
-    private String name;    //名称
-    private String mac;        //mac地址
-    private Type type;        //网络类型
-    private long checksum;    //校验和
-    private String beaconInfo;//信标信息
+
+    private String name;        //名称
+    private String mac;         //mac地址
+    private Type type;          //网络类型
+    private long checksum;      //校验和
+    private String beaconInfo;  //信标信息
     private boolean cloaked;    //是否隐藏
     private Set<CryptoType> cryptographies;//加密信息
-    private Date firstTime;    //起始时间
-    private Date lastTime;    //结束时间
-    private int maxRate;    //最大速率
-    private int beaconRate;    //信标速率
-    private int packets;    //包
-    private int beacons;    //信标
+    private Date firstTime;     //起始时间
+    private Date lastTime;      //结束时间
+    private int maxRate;        //最大速率
+    private int beaconRate;     //信标速率
+    private int packets;        //包
+    private int beacons;        //信标
     private List<Channel> channels;//信道信息
 
     public String getBeaconInfo() {

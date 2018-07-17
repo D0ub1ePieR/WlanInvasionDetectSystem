@@ -29,23 +29,23 @@ import za.co.towerman.jkismet.Protocol;
  */
 
 
-/*
+/**
  * 当前Kismet状态信息:
  * StatusMessage{flags,text};
  * {信息类型，内容}
- *
  * */
+
 @Protocol("STATUS")
 public class StatusMessage implements KismetMessage {
 
     public enum MessageFlag {
-        DEBUG,
-        INFO,
-        ERROR,
-        ALERT,
-        FATAL,
-        LOCAL,
-        PRINT
+        DEBUG,  // 调试
+        INFO,   // 信息
+        ERROR,  // 错误
+        ALERT,  // 警告
+        FATAL,  // 严重警告
+        LOCAL,  // 本地
+        PRINT   // 输出
     }
 
     private Set<MessageFlag> flags;
@@ -56,7 +56,7 @@ public class StatusMessage implements KismetMessage {
     }
 
     @Capability("flags")
-    public void setFlags(int flags) {        //????
+    public void setFlags(int flags) {
         this.flags = EnumSet.noneOf(MessageFlag.class);
         //java.util.EnumSet.noneOf(Class<E> elementType) 方法创建一个空的枚举set具有指定元素类型。对应于allOf
         for (int i = 1; i < MessageFlag.values().length; ++i) {
