@@ -29,12 +29,11 @@ import za.co.towerman.jkismet.Protocol;
  */
 
 
-/*
+/**
  * 包信息格式：
  * "PacketMessage{type, subType, time, encrypted, weakIV, beaconRate, sourceMac, sourceIp, sourcePort,
  * destinationMac, destinationIp, destinationPort, bssid, ssid, prototype, sourceName, netbiosType, netbiosSource};
  *
- * {}
  * */
 
 @Protocol("PACKET")
@@ -44,7 +43,7 @@ public class PacketMessage implements KismetMessage {
         NOISE(-2),
         UNKNOWN(-1),
         MANAGEMENT(0),
-        PHY(1),        //802.11物理层PHY是介质访问控制层MAC与无线介质之间的接口，它传输和接收共享无线介质上的数据帧。
+        PHY(1),         //802.11物理层PHY是介质访问控制层MAC与无线介质之间的接口，它传输和接收共享无线介质上的数据帧。
         DATA(2);
 
         private int value;
@@ -59,19 +58,19 @@ public class PacketMessage implements KismetMessage {
         }
     }
 
-    /*管理帧类型*/
+    // 管理帧类型
     public enum ManagementType implements ValueEnum {
-        ASSOCIATION_REQUEST(0),        //关联请求帧
-        ASSOCIATION_RESPONSE(1),    //关联响应帧
-        REASSOCIATION_REQUEST(2),    //重新关联请求帧
-        REASSOCIATION_RESPONSE(3),    ///重新关联响应帧
-        PROBE_REQUEST(4),            //探测请求帧
-        PROBE_RESPONSE(5),            //探测响应帧
-        BEACON(8),                    //信标帧
-        ATIM(9),                    //ATIM帧，ATIM：Announcement Traffic Indication Message。通知传输指示消息
-        DISACCOCIATION(10),            //解除关联帧
-        AUTHENTICATION(11),            //身份认证帧
-        DEAUTHENTICATION(12);        //解除认证帧
+        ASSOCIATION_REQUEST(0),         //关联请求帧
+        ASSOCIATION_RESPONSE(1),        //关联响应帧
+        REASSOCIATION_REQUEST(2),       //重新关联请求帧
+        REASSOCIATION_RESPONSE(3),      //重新关联响应帧
+        PROBE_REQUEST(4),               //探测请求帧
+        PROBE_RESPONSE(5),              //探测响应帧
+        BEACON(8),                      //信标帧
+        ATIM(9),                        //ATIM帧，ATIM：Announcement Traffic Indication Message。通知传输指示消息
+        DISACCOCIATION(10),             //解除关联帧
+        AUTHENTICATION(11),             //身份认证帧
+        DEAUTHENTICATION(12);           //解除认证帧
 
         private int value;
 
@@ -85,17 +84,26 @@ public class PacketMessage implements KismetMessage {
         }
     }
 
-    /*PHY帧（控制帧）类型*/
+    // PHY帧（控制帧）类型
     public enum PhyType implements ValueEnum {
-        PS_POLL(10),        //省电模式一轮询，当一部移动工作站从省电模式中苏醒，便会发送一个 PS-Poll帧给接入点，以取得任何暂存帧。
-        RTS(11),            //请求发送帧，可用来取得介质的控制权，以便传输「大型」帧。
-        CTS(12),            //允许发送帧，起初，CTS帧仅用于应答 RTS帧，如果之前没有RTS出现，就不会产生 CTS 。后来，CTS帧被 802.11g 防护机制用来避免干扰较旧的工作站。
-        ACK(13),            //应答帧
-        CF_END(14),            //无竞争周期结束，无竞争周期结束时，接入点会送出一个CF-End帧，让工作站脱离PCF访问规则，然后开始采用基于竞争的服务。
-        CF_END_ACK(15);        //当无竞争周期结束，接入点会送出一个CF-End帧，让工作站脱离PCF访问规则，
-        //同时以DCF开始进行基于竞争的服务。如果接入点必须同时响应之前所收到的数据，
-        //则可用CF-End+CF-ACK帧于结束无竞争周期的同时顺便加以响应。
+        PS_POLL(10),
+        RTS(11),
+        CTS(12),
+        ACK(13),
+        CF_END(14),
+        CF_END_ACK(15);
 
+
+        /**
+         * PS_POLL省电模式一轮询，当一部移动工作站从省电模式中苏醒，便会发送一个 PS-Poll帧给接入点，以取得任何暂存帧。
+         * RTS请求发送帧，可用来取得介质的控制权，以便传输「大型」帧。
+         * CTS允许发送帧，起初，CTS帧仅用于应答 RTS帧，如果之前没有RTS出现，就不会产生 CTS 。后来，CTS帧被 802.11g 防护机制用来避免干扰较旧的工作站。
+         *
+         * CF_END CF_END_ACK
+         * 当无竞争周期结束，接入点会送出一个CF-End帧，让工作站脱离PCF访问规则，
+         * 同时以DCF开始进行基于竞争的服务。如果接入点必须同时响应之前所收到的数据，
+         * 则可用CF-End+CF-ACK帧于结束无竞争周期的同时顺便加以响应。
+        */
         private int value;
 
         private PhyType(int value) {
@@ -108,23 +116,19 @@ public class PacketMessage implements KismetMessage {
         }
     }
 
-    /*数据帧类型*/
+    // 数据帧类型
     public enum DataType implements ValueEnum {
         DATA(0),
-        DATA_CF_ACK(1),        //此帧结合了数据传送以及确认信息。CF_ACK无竞争周期的确认，如果没有数据待传，工作站会以此帧确认之前所收到的帧。
-        DATA_CF_POLL(2),    //接入点使用此帧传送数据给某个移动工作站，然后请求对方传送一个待传帧。CF_POLL,无竞争周期轮询
-        DATA_CF_ACK_POLL(3),//此帧将数据传送，轮询功能以及确认信息结合成单一帧，为的是达到最高效率。
-
+        DATA_CF_ACK(1),
+        DATA_CF_POLL(2),
+        DATA_CF_ACK_POLL(3),
 
         NULL(4),
         NULL_CF_ACK(5),
-        NULL_CF_ACK_POLL(6),//Null帧看起来有点奇怪。它是由MAC标头与FCS标尾所组成。
-        //在传统的以太网中，Null帧无非就是额外的负担；在802.11网络中，移动工作站会利用Null帧来通知基站省电状态的改变。
-        // 当工作站进入休眠状态，基站必须开始为之暂存帧。如果该移动式工作站没有数据要通过传输系统传输，也可以使用Null帧，
-        //同时将Frame Control（帧控制）位的Power Management（电源管理）bit设定为1。基站不可能进入省电模式，
-        //因此不会发送Null帧。
+        NULL_CF_ACK_POLL(6),
 
-        QOS_DATA(8),        //Qos服务质量
+
+        QOS_DATA(8),                // Qos服务质量
         QOS_DATA_CF_ACK(9),
         QOS_DATA_CF_POLL(10),
         QOS_DATA_CF_ACK_POLL(11),
@@ -144,32 +148,34 @@ public class PacketMessage implements KismetMessage {
     }
 
 
-    private Type type;                    //包类型
+    private Type type;                  //包类型
     private int subType;                //子类型
-    private Date time;                    //时间
-    private boolean encrypted;            //是否加密
-    private boolean weakIV;                //是否具有虚弱向量
-    /*
+    private Date time;                  //时间
+    private boolean encrypted;          //是否加密
+    private boolean weakIV;             //是否具有虚弱向量
+
+    /**
      * 使用WEP加密的时候，WLAN设备对于每一个报文都会使用初始化向量（IV，Initialization Vector），
      * IV和Key一起作为输入来生成Key Stream，使相同密钥产生不同加密效果。当一个WEP报文被发送时，
      * 用于加密报文的IV也作为报文头的一部分被发送。如果WLAN设备使用不安全的方法生成IV，
      * 例如始终使用固定的IV，就可能会暴露共享的密钥，如果潜在的攻击者获得了共享的密钥，攻击者将能够控制网络资源。
      * 检测IDS攻击可以通过识别每个WEP报文的IV来预防这种攻击，当一个Weak IV的报文被检测到时，这个检测将立刻被记录到日志中。
      * */
-    private int beaconRate;                //信标帧速率
-    private String sourceMac;            //源mac地址
-    private InetAddress sourceIp;        //源IP
-    private int sourcePort;                //源端口
-    private String destinationMac;        //目的mac地址
-    private InetAddress destinationIp;    //目的IP
-    private int destinationPort;        //目的端口
-    private String bssid;                //路由广播地址
-    private String ssid;                //路由mac地址
-    private String prototype;            //协议类型
-    private String sourceName;            //源地址名
-    private int netbiosType;            //NetBIOS是网络的基本输入输出系统。
+
+    private int beaconRate;                 //信标帧速率
+    private String sourceMac;               //源mac地址
+    private InetAddress sourceIp;           //源IP
+    private int sourcePort;                 //源端口
+    private String destinationMac;          //目的mac地址
+    private InetAddress destinationIp;      //目的IP
+    private int destinationPort;            //目的端口
+    private String bssid;                   //路由广播地址
+    private String ssid;                    //路由mac地址
+    private String prototype;               //协议类型
+    private String sourceName;              //源地址名
+    private int netbiosType;                //NetBIOS是网络的基本输入输出系统。
     //NetBIOS 定义了一种软件接口以及在应用程序和连接介质之间提供通信接口的标准方法
-    private String netbiosSource;        //netbios源
+    private String netbiosSource;           //netbios源
 
     public Type getType() {
         return type;
