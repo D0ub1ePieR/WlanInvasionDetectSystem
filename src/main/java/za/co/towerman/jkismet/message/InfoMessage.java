@@ -25,7 +25,7 @@ import za.co.towerman.jkismet.Protocol;
  * @author espeer
  */
 
-/*
+/**
  * 显示信息格式：
  * InfoMessage{networks,packets,encryptedPackets,noise,droppedPackets,packetRate,
  * 				filteredPackets,clients,llcPackets,dataPackets,sources,errorSources};
