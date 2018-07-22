@@ -22,7 +22,7 @@ public class GetStatisticsInfoTest {
         //创建报文json
         JsonObject request = new JsonObject();
         request.put("version",1);
-        request.put("method","wifiDetecttion.getStatisticsInfo");
+        request.put("method","wifiDetection.getStatisticsInfo");
         request.put("params",params);
         request.put("token","");
         request.put("id",1);
