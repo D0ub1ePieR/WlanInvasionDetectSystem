@@ -82,6 +82,7 @@ public class Login extends RequestHandler
             {
                 truePasswd = userRes.getValue("passwd").toString();        //从数据库获取的正确的经过SHA256加密后的密码
                 inputPasswd = Tools.encodeSHA256(request.getParams().getValue("passwd").toString());        //将用户输入的密码进行加密
+                logger.info((Object)String.format("%s",inputPasswd));
             } catch (Exception err)
             {
                 logger.info((Object)String.format("query:%s succeed no result", query));
