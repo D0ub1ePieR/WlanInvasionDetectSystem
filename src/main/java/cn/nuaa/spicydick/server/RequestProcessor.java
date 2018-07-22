@@ -1,7 +1,14 @@
 package cn.nuaa.spicydick.server;
 
+import cn.nuaa.spicydick.server.handler.clientDetection.GetClientDetail;
+import cn.nuaa.spicydick.server.handler.clientDetection.GetClientEventList;
+import cn.nuaa.spicydick.server.handler.clientDetection.GetClientList;
 import cn.nuaa.spicydick.server.handler.usr.*;
-import cn.nuaa.spicydick.server.handler.wifiDetection.GetStatisticsInfo;
+import cn.nuaa.spicydick.server.handler.warningInfo.GetWarningList;
+import cn.nuaa.spicydick.server.handler.weakPasswd.CrackWifiPasswd;
+import cn.nuaa.spicydick.server.handler.weakPasswd.GetCrackTaskProgress;
+import cn.nuaa.spicydick.server.handler.whiteList.*;
+import cn.nuaa.spicydick.server.handler.wifiDetection.*;
 import cn.nuaa.spicydick.server.msg.ErrorCode;
 import cn.nuaa.spicydick.server.msg.Request;
 import cn.nuaa.spicydick.server.msg.ResponseFactory;
@@ -39,10 +46,10 @@ public class RequestProcessor
     {
         this.requestHandlerMap.put("user.login", new Login());
         this.requestHandlerMap.put("user.createAccount", new CreateAccount());      //创建账户
-        //this.requestHandlerMap.put("user.updatePasswd", new UpdatePasswd());
+        // this.requestHandlerMap.put("user.updatePasswd", new UpdatePasswd());
 
         this.requestHandlerMap.put("wifiDetection.getStatisticsInfo", new GetStatisticsInfo());
-        /*this.requestHandlerMap.put("wifiDetection.getWifiList", new GetWifiList());
+        this.requestHandlerMap.put("wifiDetection.getWifiList", new GetWifiList());
         this.requestHandlerMap.put("wifiDetection.getWifiDetail", new GetWifiDetail());
         this.requestHandlerMap.put("wifiDetection.getWifiClientList", new GetWifiClientList());
         this.requestHandlerMap.put("wifiDetection.getWifiSignals", new GetWifiSignals());
@@ -53,7 +60,7 @@ public class RequestProcessor
         this.requestHandlerMap.put("clientDetection.getClientDetail", new GetClientDetail());
         this.requestHandlerMap.put("clientDetection.getClientEventList", new GetClientEventList());
 
-        this.requestHandlerMap.put("warningInfo.getWarningList", new GetWarningList());
+        // this.requestHandlerMap.put("warningInfo.getWarningList", new GetWarningList());
 
         this.requestHandlerMap.put("whiteList.addWifiToWhiteList", new AddWifiToWhiteList());
         this.requestHandlerMap.put("whiteList.deleteWifiFromWhiteList", new DeleteWifiFromWhiteList());
@@ -64,13 +71,14 @@ public class RequestProcessor
         this.requestHandlerMap.put("whiteList.getClientWhiteList", new GetClientWhiteList());
         this.requestHandlerMap.put("whiteList.updateClientWhiteList", new UpdateClientWhiteList());
 
-        this.requestHandlerMap.put("report.updateReportConf", new UpdateReportConf());
+        /*this.requestHandlerMap.put("report.updateReportConf", new UpdateReportConf());
         this.requestHandlerMap.put("report.getReportConf", new GetReportConf());
         this.requestHandlerMap.put("report.createReport", new CreateReport());
         this.requestHandlerMap.put("report.deleteReport", new DeleteReport());
-        this.requestHandlerMap.put("report.getReportList", new GetReportList());
+        this.requestHandlerMap.put("report.getReportList", new GetReportList());*/
 
-        this.requestHandlerMap.put("weakPasswd.crackWifiPasswd", new CrackWifiPasswd());
+
+        /*this.requestHandlerMap.put("weakPasswd.crackWifiPasswd", new CrackWifiPasswd());
         this.requestHandlerMap.put("weakPasswd.getCrackTaskProgress", new GetCrackTaskProgress());*/
     }
 
