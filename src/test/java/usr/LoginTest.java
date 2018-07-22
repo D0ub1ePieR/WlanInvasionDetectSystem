@@ -17,8 +17,8 @@ public class LoginTest {
         WebClient client = WebClient.create(vertx);
 
         JsonObject params = new JsonObject();
-        params.put("username", "eda");
-        params.put("passwd", "123456");
+        params.put("username", "test");
+        params.put("passwd", "123");
 
         JsonObject form = new JsonObject();
         form.put("version", 1);
