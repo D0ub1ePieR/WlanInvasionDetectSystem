@@ -29,9 +29,9 @@ public class GetWifiClientList extends RequestHandler {
         //表单验证
         String wifiBssid = request.getParams().getValue("wifiBssid") != null ? request.getParams().getValue("wifiBssid").toString() : null;
 
-        int page = request.getParams().getValue("wifiBssid") != null ? StringToInt(request.getParams().getValue("wifiBssid").toString()) : 1;
+        int page = request.getParams().getValue("page") != null ? StringToInt(request.getParams().getValue("page").toString()) : 1;
 
-        if (!formDetect(wifiBssid, "MAC_RegEx") || !formDetect(page, 1, 100)) {
+        if (!formDetect(wifiBssid, "MAC_RegExpr") || !formDetect(page, 1, 100)) {
             routingContext.response().end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());
             Login.logger.error((Object) String.format("user:%s exception:%s", "非法参数"));
             return;

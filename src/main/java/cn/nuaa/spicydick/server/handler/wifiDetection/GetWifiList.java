@@ -50,8 +50,8 @@ public class GetWifiList extends RequestHandler {
 
         //表单验证
         if(!formDetect(online, 0, 2) || !formDetect(type, 0, 4) ||
-                !formDetect(keyword, 0, 32) || !formDetect(firstSeenFrom, "DATE_RegEx") ||
-                !formDetect(firstSeenTo, "DATE_RegEx") || !formDetect(page, 1, 100)){
+                !formDetect(keyword, 0, 32) || !formDetect(firstSeenFrom, "DATE_RegExpr") ||
+                !formDetect(firstSeenTo, "DATE_RegExpr") || !formDetect(page, 1, 100)){
 
             routingContext.response().end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());
             Login.logger.error((Object)String.format("user:%s exception:%s", "非法参数"));
