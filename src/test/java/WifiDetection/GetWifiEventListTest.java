@@ -7,7 +7,7 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
-
+//
 public class GetWifiEventListTest {
     public static void main(final String[] args) {
         IniUtil.changeMode(IniUtil.LOCAL_DEBUG_MODE);
@@ -17,11 +17,12 @@ public class GetWifiEventListTest {
         WebClient client = WebClient.create(vertx);
 
         //构建虚拟报文参数params
+        // 实际起止时间是必填项
         JsonObject params= new JsonObject();
-        params.put("wifiBssid","FF-FF-FF-FF-FF-FF");
+        params.put("wifiBssid","1a-2b-3c-4c-5b-6a");
         params.put("page",1);
-        params.put("startTime","");
-        params.put("endTime","");
+        params.put("startTime","2017-01-01 11:11:11");  // 此处时间设置非必填项
+        params.put("endTime","2017-01-01 11:11:11");
 
         //创建报文json
         JsonObject request = new JsonObject();

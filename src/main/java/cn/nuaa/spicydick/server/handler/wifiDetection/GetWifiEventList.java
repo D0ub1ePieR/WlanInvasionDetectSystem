@@ -35,7 +35,7 @@ public class GetWifiEventList extends RequestHandler {
         int page = request.getParams().getValue("page") != null ? StringToInt(request.getParams().getValue("page").toString()) : 1;
 
         String startTime = request.getParams().getValue("startTime") != null ? request.getParams().getValue("startTime").toString() : "1970-01-01 00:00:00";
-        String endTime = request.getParams().getValue("endTime") != null ? request.getParams().getValue("endTime").toString() : "2070-01-01 00:00:";
+        String endTime = request.getParams().getValue("endTime") != null ? request.getParams().getValue("endTime").toString() : "2070-01-01 00:00:00";
 
         //表单验证
         if (!formDetect(wifiBssid, "MAC_RegExpr") || !formDetect(page, 1, 100) ||
