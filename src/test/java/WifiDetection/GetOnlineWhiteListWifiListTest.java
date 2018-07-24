@@ -7,6 +7,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
 
+//
 public class GetOnlineWhiteListWifiListTest {
     public static void main(final String[] args) {
         IniUtil.changeMode(IniUtil.LOCAL_DEBUG_MODE);
@@ -22,7 +23,7 @@ public class GetOnlineWhiteListWifiListTest {
         //创建报文json
         JsonObject request = new JsonObject();
         request.put("version", 1.0);
-        request.put("method", "wifiDetection.getWifiEventList");
+        request.put("method", "wifiDetection.getOnlineWhiteListWifiList");
         request.put("params", params);
         request.put("token", "");
         request.put("id", 1);
