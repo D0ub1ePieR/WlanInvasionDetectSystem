@@ -17,7 +17,7 @@ public class GetWifiDetailTest {
 
         //构建虚拟报文参数params
         JsonObject params= new JsonObject();
-        params.put("wifiBssid","");
+        params.put("wifiBssid","1a-2b-3c-4c-5b-6a");
 
         //创建报文json
         JsonObject request = new JsonObject();
