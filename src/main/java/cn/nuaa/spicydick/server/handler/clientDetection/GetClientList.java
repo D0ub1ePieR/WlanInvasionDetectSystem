@@ -52,8 +52,8 @@ public class GetClientList extends RequestHandler {
 
         //表单检验
         if (!formDetect(online, 0, 2) || !formDetect(type, 0, 4) ||
-                !formDetect(keyword, 0, 32) || !formDetect(firstSeenFrom, "DATE_RegEx") ||
-                !formDetect(firstSeenTo, "DATE_RegEx") || !formDetect(page, 1, 100)) {
+                !formDetect(keyword, 0, 32) || !formDetect(firstSeenFrom, "DATE_RegExpr") ||
+                !formDetect(firstSeenTo, "DATE_RegExpr") || !formDetect(page, 1, 100)) {
             routingContext.response()
                     .end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());
             cn.nuaa.spicydick.server.handler.usr.Login.logger
@@ -79,15 +79,15 @@ public class GetClientList extends RequestHandler {
 
 
         ClientListInfo Info2 = new ClientListInfo();
-        Info1.setClientSignal(111);
-        Info1.setAccessPointSsid("ab");
-        Info1.setAccessPointBssid("00-f0-00-00-00-00");
-        Info1.setSecurityStatus(1);
-        Info1.setConnectionStatus(0);
-        Info1.setIntranet(0);
-        Info1.setIsInWhiteList(1);
-        Info1.setClientBssid("00-00-00-00-00-00");
-        Info1.setLastSeen("2017-11-11 11:11:11");
+        Info2.setClientSignal(111);
+        Info2.setAccessPointSsid("ab");
+        Info2.setAccessPointBssid("00-f0-00-00-00-00");
+        Info2.setSecurityStatus(1);
+        Info2.setConnectionStatus(0);
+        Info2.setIntranet(0);
+        Info2.setIsInWhiteList(1);
+        Info2.setClientBssid("00-00-00-00-00-00");
+        Info2.setLastSeen("2017-11-11 11:11:11");
 
         clientList.add(Info1);
         clientList.add(Info2);

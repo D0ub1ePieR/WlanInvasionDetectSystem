@@ -38,8 +38,8 @@ public class GetClientEventList extends RequestHandler {
                 request.getParams().getValue("endTime").toString() : "2070-01-01 00:00:00";
 
         //表单检验
-        if (!formDetect(clientBssid, "MAC_RegEx") || !formDetect(page, 1, 100) ||
-                !formDetect(startTime, "DATE_RegEx") || !formDetect(endTime, "DATE_RegEx")) {
+        if (!formDetect(clientBssid, "MAC_RegExpr") || !formDetect(page, 1, 100) ||
+                !formDetect(startTime, "DATE_RegExpr") || !formDetect(endTime, "DATE_RegExpr")) {
             routingContext.response()
                     .end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());
             cn.nuaa.spicydick.server.handler.usr.Login.logger

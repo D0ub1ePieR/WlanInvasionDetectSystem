@@ -24,7 +24,7 @@ public class GetClientDetail extends RequestHandler {
         String clientBssid = request.getParams().getValue("clientBssid") != null ?
                 request.getParams().getValue("clientBssid").toString() : null;
 
-        if (!formDetect(clientBssid, "MAC_RegEx")) {
+        if (!formDetect(clientBssid, "MAC_RegExpr")) {
             routingContext.response()
                     .end(ResponseFactory.error(-203, ErrorCode.MACADDRESS_FORMET_ERROR, "MAC地址格式不规范").toString());
             cn.nuaa.spicydick.server.handler.usr.Login.logger
