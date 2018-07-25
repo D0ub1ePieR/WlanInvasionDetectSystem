@@ -52,7 +52,7 @@ public class AddClientToWhiteList extends RequestHandler {
 
             // System.out.println("wifiSsid="+wifiSsid+ " wifiBssid="+wifiBssid+ " remark="+remark+ " " + " location="+ location+ " manager="+manager+ " contact="+contact);
 
-            if (!formDetect(clientBssid, "MAC_RegEx") || !formDetect(remark, 1, 20) ||
+            if (!formDetect(clientBssid, "MAC_RegExpr") || !formDetect(remark, 1, 20) ||
                     !formDetect(manager, 1, 20) || !formDetect(contact, 6, 12)) {
                 routingContext.response()
                         .end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());

@@ -55,7 +55,7 @@ public class AddWifiToWhiteList extends RequestHandler {
 
             // System.out.println("wifiSsid="+wifiSsid+ " wifiBssid="+wifiBssid+ " remark="+remark+ " " + " location="+ location+ " manager="+manager+ " contact="+contact);
 
-            if (!formDetect(wifiBssid, "MAC_RegEx") || !formDetect(remark, 1, 20) ||
+            if (!formDetect(wifiBssid, "MAC_RegExpr") || !formDetect(remark, 1, 20) ||
                     !formDetect(manager, 1, 20) || !formDetect(contact, 6, 12)) {
                 routingContext.response().end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());
                 cn.nuaa.spicydick.server.handler.usr.Login.logger.error((Object) String.format("user:%s exception:%s", "非法参数"));

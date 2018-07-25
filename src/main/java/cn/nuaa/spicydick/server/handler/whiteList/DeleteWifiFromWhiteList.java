@@ -23,7 +23,7 @@ public class DeleteWifiFromWhiteList extends RequestHandler {
                 request.getParams().getValue("wifiBssid").toString() : null;
 
         //表单检验
-        if(!formDetect(wifiBssid, "MAC_RegEx")){
+        if(!formDetect(wifiBssid, "MAC_RegExpr")){
             routingContext.response()
                     .end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());
             cn.nuaa.spicydick.server.handler.usr.Login.logger

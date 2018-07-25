@@ -36,7 +36,7 @@ public class UpdateWifiWhiteList extends RequestHandler {
                 request.getParams().getValue("contact").toString() : "#NULL#";
 
         //表单检验
-        if (!formDetect(wifiBssid, "MAC_RegEx") || !formDetect(remark, 1, 20) ||
+        if (!formDetect(wifiBssid, "MAC_RegExpr") || !formDetect(remark, 1, 20) ||
                 !formDetect(location, 1, 40) || !formDetect(manager, 1, 20) ||
                 !formDetect(contact, 1, 12)) {
 

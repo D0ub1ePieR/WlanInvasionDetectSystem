@@ -31,7 +31,7 @@ public class UpdateClientWhiteList extends RequestHandler {
                 request.getParams().getValue("contact").toString() : "#NULL#";
 
         //表单检验
-        if(!formDetect(clientBssid, "MAC_RegEx") || !formDetect(remark, 1, 20) ||
+        if(!formDetect(clientBssid, "MAC_RegExpr") || !formDetect(remark, 1, 20) ||
                 !formDetect(manager, 1, 20) || !formDetect(contact, 1, 12)){
             routingContext.response()
                     .end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());

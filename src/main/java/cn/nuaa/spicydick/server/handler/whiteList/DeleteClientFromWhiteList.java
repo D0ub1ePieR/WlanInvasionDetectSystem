@@ -17,12 +17,12 @@ public class DeleteClientFromWhiteList extends RequestHandler {
     public void handle(final RoutingContext routingContext, final Request request) {
         routingContext.response().putHeader("content-type", "application/json");
 
-        // 获取wifiMAC地址信息
-        String wifiBssid = request.getParams().getValue("wifiBssid") != null ?
-                request.getParams().getValue("wifiBssid").toString() : null;
+        // 获取clientMAC地址信息
+        String clientBssid = request.getParams().getValue("clientBssid") != null ?
+                request.getParams().getValue("clientBssid").toString() : null;
 
         //表单检验
-        if (!formDetect(wifiBssid, "MAC_RegEx")) {
+        if (!formDetect(clientBssid, "MAC_RegExpr")) {
             routingContext.response()
                     .end(ResponseFactory.error(-3, ErrorCode.INVALID_PARAMETERS, "非法参数").toString());
             cn.nuaa.spicydick.server.handler.usr.Login.logger
