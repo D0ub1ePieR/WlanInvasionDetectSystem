@@ -35,14 +35,19 @@
     
 | Function | DDL | Status |
 | :-: | :-: | :-: |
-| AddClientToWhiteList | 7-25 | ✘ |
-| AddWifiToWhiteList | 7-25 | ✘ |
-| DeleteClientFromWhiteList | 7-25 | ✘ |
-| DeleteWifiFromWhiteList | 7-25 | ✘ |
-| GetClientWhiteList | 7-25 | ✘ |
-| GetWifiWhiteList | 7-25 | ✘ |
-| UpdateClientWhiteList | 7-25 | ✘ |
-| UpdateWifiWhiteList | 7-25 | ✘ |
+| AddClientToWhiteList | 7-25 | ✔ |
+| AddWifiToWhiteList | 7-25 | ✔ |
+| DeleteClientFromWhiteList | 7-25 | ✔ |
+| DeleteWifiFromWhiteList | 7-25 | ✔ |
+| GetClientWhiteList | 7-25 | ✔ |
+| GetWifiWhiteList | 7-25 | ✔ |
+| UpdateClientWhiteList | 7-25 | ✔ |
+| UpdateWifiWhiteList | 7-25 | ✔ |
+
+```$xslt
+    需要注意类似删除更新操作时，测试类未对设备是否存在做出判断
+    只是对报文以及报文内容的格式做出了解析和判断正确性
+```
 
 ***
 # wlan_invasion_detection_system
