@@ -32,7 +32,7 @@ public class RequestProcessor
     private RequestProcessor()
     {
         this.requestHandlerMap = new Hashtable<String, RequestHandler>();
-        this.initRequstHandlers();
+        this.initRequestHandlers();
     }
 
     public static RequestProcessor getInstance()
@@ -43,7 +43,7 @@ public class RequestProcessor
     }
 
     //初始化url--method表
-    private void initRequstHandlers()
+    private void initRequestHandlers()
     {
         this.requestHandlerMap.put("user.login", new Login());
         this.requestHandlerMap.put("user.createAccount", new CreateAccount());      //创建账户
