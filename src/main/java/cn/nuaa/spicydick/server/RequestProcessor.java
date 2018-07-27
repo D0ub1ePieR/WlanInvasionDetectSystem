@@ -77,6 +77,7 @@ public class RequestProcessor
         this.requestHandlerMap.put("report.createReport", new CreateReport());
         this.requestHandlerMap.put("report.deleteReport", new DeleteReport());
         this.requestHandlerMap.put("report.getReportList", new GetReportList());
+        this.requestHandlerMap.put("report.getReportDetail", new GetReportDetail());
 
 
         /*this.requestHandlerMap.put("weakPasswd.crackWifiPasswd", new CrackWifiPasswd());
