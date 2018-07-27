@@ -9,6 +9,7 @@ import cn.nuaa.spicydick.server.handler.weakPasswd.CrackWifiPasswd;
 import cn.nuaa.spicydick.server.handler.weakPasswd.GetCrackTaskProgress;
 import cn.nuaa.spicydick.server.handler.whiteList.*;
 import cn.nuaa.spicydick.server.handler.wifiDetection.*;
+import cn.nuaa.spicydick.server.handler.report.*;
 import cn.nuaa.spicydick.server.msg.ErrorCode;
 import cn.nuaa.spicydick.server.msg.Request;
 import cn.nuaa.spicydick.server.msg.ResponseFactory;
@@ -71,11 +72,11 @@ public class RequestProcessor
         this.requestHandlerMap.put("whiteList.getClientWhiteList", new GetClientWhiteList());
         this.requestHandlerMap.put("whiteList.updateClientWhiteList", new UpdateClientWhiteList());
 
-        /*this.requestHandlerMap.put("report.updateReportConf", new UpdateReportConf());
+        this.requestHandlerMap.put("report.updateReportConf", new UpdateReportConf());
         this.requestHandlerMap.put("report.getReportConf", new GetReportConf());
         this.requestHandlerMap.put("report.createReport", new CreateReport());
         this.requestHandlerMap.put("report.deleteReport", new DeleteReport());
-        this.requestHandlerMap.put("report.getReportList", new GetReportList());*/
+        this.requestHandlerMap.put("report.getReportList", new GetReportList());
 
 
         /*this.requestHandlerMap.put("weakPasswd.crackWifiPasswd", new CrackWifiPasswd());
